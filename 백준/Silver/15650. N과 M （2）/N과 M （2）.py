@@ -1,13 +1,19 @@
-N,M = map(int, input().split())
+import sys
 
-def dfs(n,s,lst):
+input = sys.stdin.readline
+N, M = map(int, input().split())
+
+arr = []
+
+
+def dfs(n, s):
     if n == M:
-        ans.append(lst)
+        print(*arr)
         return
-    for j in range(s, N+1):
-        dfs(n+1, j+1, lst+[j])
-ans = []
-dfs(0,1,[]) 
+    for i in range(s, N + 1):
+        arr.append(i)
+        dfs(n + 1, i + 1)
+        arr.pop()
 
-for lst in ans:
-    print(*lst)
+
+dfs(0, 1)
