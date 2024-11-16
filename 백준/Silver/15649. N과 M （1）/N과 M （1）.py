@@ -1,19 +1,23 @@
+import sys
 
-def dfs(n, lst):
-    if n==M:
-        ans.append(lst)
+input = sys.stdin.readline
+
+N, M = map(int, input().split())
+arr = []
+v = [False] * (N + 1)
+
+
+def dfs(n):
+    if n == M:
+        print(*arr)
         return
-    for i in range(1, N+1):
-        if v[i] == 0:
-            v[i] = 1
-            dfs(n+1, lst+[i])
-            v[i] = 0
+    for i in range(1, N + 1):
+        if not v[i]:
+            arr.append(i)
+            v[i] = True
+            dfs(n + 1)
+            arr.pop()
+            v[i] = False
 
-N,M = map(int, input().split())
-v = [0] * (N + 1)
-ans = []
 
-dfs(0, [])
-
-for j in ans:
-    print(*j)
+dfs(0)
