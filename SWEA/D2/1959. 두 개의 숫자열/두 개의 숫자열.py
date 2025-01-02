@@ -1,29 +1,49 @@
-T = int(input())
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
-for tc in range(1, T + 1):
-    n, m = map(int, input().split())
-    arr_n = list(map(int, input().split()))
-    arr_m = list(map(int, input().split()))
+class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int tc = Integer.parseInt(br.readLine());
+        for (int t = 1; t <= tc; t++) {
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            int n = Integer.parseInt(st.nextToken());
+            int m = Integer.parseInt(st.nextToken());
+            
+            int[] arr1 = new int[n];
+            int[] arr2 = new int[m];
 
-    result = 0
-    if n > m:
-        for i in range(n - m + 1):
-            k = i
-            j = 0
-            sum = 0
-            for _ in range(m):
-                sum += arr_n[k] * arr_m[j]
-                k += 1
-                j += 1
-            result = max(result, sum)
-    else:
-        for i in range(m - n + 1):
-            k = i
-            j = 0
-            sum = 0
-            for _ in range(n):
-                sum += arr_n[j] * arr_m[k]
-                k += 1
-                j += 1
-            result = max(result, sum)
-    print(f"#{tc} {result}")
+            st = new StringTokenizer(br.readLine(), " ");
+            for (int i = 0; i < n; i++) {
+                arr1[i] = Integer.parseInt(st.nextToken());
+            }
+            
+            st = new StringTokenizer(br.readLine(), " ");
+            for (int i = 0; i < m; i++) {
+                arr2[i] = Integer.parseInt(st.nextToken());
+            }
+
+            long sum;
+            if (n > m)
+                sum = myfun(n, arr1, m, arr2);
+            else
+                sum = myfun(m, arr2, n, arr1);
+
+            System.out.println("#" + t + " " + sum);
+        }
+    }
+
+    private static long myfun(int biggerSize, int[] biggerArr, int smallerSize, int[] smallerArr) {
+        long res = Long.MIN_VALUE;
+        for (int i = 0; i <= biggerSize - smallerSize; i++) {
+            long temp = 0;
+            for (int j = 0; j < smallerSize; j++) {
+                temp += biggerArr[i + j] * smallerArr[j];
+            }
+            res = Math.max(res, temp);
+        }
+        return res;
+    }
+}
