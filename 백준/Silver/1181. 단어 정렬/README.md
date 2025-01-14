@@ -33,3 +33,23 @@
 
  <p>조건에 따라 정렬하여 단어들을 출력한다.</p>
 
+### 풀이
+1. 중복된 문자열을 제거하기위해 문자열을 stream으로 변환 후 distinct메소드를 사용한다
+```
+arr = Arrays.stream(arr).distinct().toArray(String[]::new);
+```
+2. 주어진 조건대로 길이가 짧은 것부터 정렬을 하고 길이가 같을 경우 사전 순으로 정렬을 하기 위해 sort함수를 overrite한다
+```
+		Arrays.sort(arr, new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				if (o1.length() != o2.length()) {
+					return o1.length() - o2.length();
+				}
+				return o1.compareTo(o2);
+			}
+		});
+```
+- compare함수를 재정의하여 길이가 다르다면 두 문자열의 차이를 리턴한다
+- - 리턴 값이 음수일 경우 위치가 바뀌지 않고
+  - 리턴 값이 양수일 경우 o2 문자열이 앞으로 오게 된다.
