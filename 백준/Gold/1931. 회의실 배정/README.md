@@ -26,3 +26,37 @@
 
  <p>첫째 줄에 최대 사용할 수 있는 회의의 최대 개수를 출력한다.</p>
 
+### 풀이
+1. 회의실의 시작시간과 종료시간을 입력 받기 위해 2차원배열을 할당하고 초기화 해준다
+```
+		int[][] arr = new int[n][2];
+		
+		for (int i =0; i < n; i++) {
+			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+			arr[i][0] = Integer.parseInt(st.nextToken());
+			arr[i][1] = Integer.parseInt(st.nextToken());
+		}
+```
+2. 종료시간이 빠른 순서대로 정렬을한다.
+   - 종료시간이 같을 시 도착시간이 빠른 순서대로 정렬한다
+```
+		Arrays.sort(arr, new Comparator<int[]>() {
+			@Override
+			public int compare(int[] s1, int[] s2) {
+				if (s1[1] == s2[1]) {
+					return s1[0] - s2[0];
+				}
+				return s1[1] - s2[1];
+			}
+		});
+```
+3. 정렬된 배열을 순회한다
+   - 이전 배열의 작업 종료시간이 현재 작업 시작 시간보다 클 경우 마지막 작업 종료시간을 초기화한다
+```
+		for (int i = 0; i < n; i++) {
+			if (end_time <= arr[i][0]) {
+				end_time = arr[i][1];
+				count++;
+			}
+		}
+```
