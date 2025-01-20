@@ -31,4 +31,5 @@
 ### 출력 
 
  <p>각 테스트 케이스에 대해 마지막 데이터가 처리되는 컴퓨터의 번호를 출력한다.</p>
+![image](https://github.com/user-attachments/assets/e56e4300-220b-4103-ba40-63750173dd24)
 
